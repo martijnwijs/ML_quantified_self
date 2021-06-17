@@ -5,7 +5,7 @@ from pathlib import Path
 from data_preprocessing.outlier_detection import DistributionBasedOutlierDetection
 from util.visualize_dataset import VisualizeDataset
 
-DATA_PATH = Path('./data/')
+DATA_PATH = Path('./data/aggregated/')
 DATASET_FNAMES = ('aggregated_1s', 'aggregated_250ms', 'aggregated_500ms')
 
 def main():
@@ -30,7 +30,7 @@ def main():
             result = OutlierDistr.chauvenet(3, data, col)
             dataset.loc[data.loc[result[f'{col}_outlier'] == True, col].index, col] = np.nan
 
-        dataset.to_csv(DATA_PATH / f"{dataset_fname}_outliers.csv")
+        dataset.to_csv(f"{DATA_PATH}/{dataset_fname}_outliers.csv")
 
 if __name__ == "__main__":
     main()

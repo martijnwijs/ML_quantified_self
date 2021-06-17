@@ -1,6 +1,14 @@
-/data/raw
+/data
 .DS_Store
 
 data/.ipynb_checkpoints/
 
 notebooks /.ipynb_checkpoints/
+
+util/__pycache__/
+.idea
+.ipynb_checkpoints/
+
+*.pyc
+
+data_preprocessing/__pycache__/
