@@ -18,7 +18,7 @@ def main():
             df = imp.impute_interpolate(dataset, col)
 
         # to csv file
-        df.to_csv(DATA_PATH / f"{dataset_fname}_imputations.csv")
+        df.to_csv(DATA_PATH / f"{dataset_fname}_imputations_p.csv")
 if __name__ == "__main__":
     main()
     

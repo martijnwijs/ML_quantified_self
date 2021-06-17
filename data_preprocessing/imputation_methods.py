@@ -22,7 +22,9 @@ class ImputationMissingValues:
 
     # Interpolate the dataset based on previous/next values..
     def impute_interpolate(self, dataset, col):
-        dataset[col] = dataset[col].interpolate()
+        dataset[col] = dataset[col].interpolate(method='pad')
         # And fill the initial data points if needed:
         dataset[col] = dataset[col].fillna(method='bfill')
         return dataset
+
+        
