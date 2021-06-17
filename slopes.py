@@ -4,7 +4,8 @@ import numpy as np
 from pathlib import Path
 
 DATA_PATH = Path('./data/')
-DATASET_FNAMES = ('aggregated_1s_outliers', 'aggregated_250ms_outliers', 'aggregated_500ms_outliers')
+DATASET_FNAMES = ('aggregated_1s_outliers_imputations', 'aggregated_250ms_outliers_imputations', 'aggregated_500ms_outliers_imputations')
+intervals = [1., 0.25, 0.5]
 
 def add_slope(df, column, interval):
     'adds the slope of the '
@@ -25,15 +26,17 @@ def main():
         'attr_azimuth', 'attr_pitch', 'attr_roll', 'attr_x_slope', 'attr_y_slope', 'attr_z_slope',
         'attr_azimuth_slope', 'attr_pitch_slope', 'attr_roll_slope']  
 
+    '''
     # without accelerations
     attributes =['attr_x', 'attr_y', 'attr_z',
         'attr_azimuth', 'attr_pitch', 'attr_roll']
-    
-    for dataset_fname in DATASET_FNAMES:
+    '''
+    for i in range(len(DATASET_FNAMES)):
+        dataset_fname = DATASET_FNAMES[i]
         df = pd.read_csv(Path(DATA_PATH / f"{dataset_fname}.csv"), index_col=0)
 
         for attribute in attributes:
-            df = add_slope(df, attribute)
+            df = add_slope(df, attribute, intervals[i])
 
         df.to_csv(DATA_PATH / f"{dataset_fname}_slopes.csv")
 
