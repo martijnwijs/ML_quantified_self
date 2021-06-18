@@ -3,8 +3,8 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 
-DATA_PATH = Path('./data/')
-DATASET_FNAMES = ('aggregated_1s_outliers_imputations', 'aggregated_250ms_outliers_imputations', 'aggregated_500ms_outliers_imputations')
+DATA_PATH = Path('./data/engineered')
+DATASET_FNAMES = ('aggregated_1s_pcas', 'aggregated_250ms_pcas', 'aggregated_500ms_pcas')
 intervals = [1., 0.25, 0.5]
 
 def add_slope(df, column, interval):
@@ -33,12 +33,12 @@ def main():
     '''
     for i in range(len(DATASET_FNAMES)):
         dataset_fname = DATASET_FNAMES[i]
-        df = pd.read_csv(Path(DATA_PATH / f"{dataset_fname}.csv"), index_col=0)
+        df = pd.read_csv(Path(DATA_PATH / f"{dataset_fname}.csv.gz"), compression="gzip", index_col=0)
 
         for attribute in attributes:
             df = add_slope(df, attribute, intervals[i])
 
-        df.to_csv(DATA_PATH / f"{dataset_fname}_slopes.csv")
+        df.to_csv(DATA_PATH / f"{dataset_fname}_slopes.csv.gz", compression="gzip")
 
 if __name__ == "__main__":
     main()

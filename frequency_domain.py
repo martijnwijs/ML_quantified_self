@@ -4,13 +4,13 @@ from pathlib import Path
 from util.visualize_dataset import VisualizeDataset
 from feature_engineering.frequency_abstraction import FourierTransformation
 
-DATA_PATH = Path('./data/')
-DATASET_FNAMES = ('aggregated_1s_outliers_imputations', 'aggregated_500ms_outliers_imputations', 'aggregated_250ms_outliers_imputations')
+DATA_PATH = Path('./data/engineered')
+DATASET_FNAMES = ('aggregated_1s_pcas_slopes', 'aggregated_500ms_pcas_slopes', 'aggregated_250ms_pcas_slopes')
 MILLISECONDS_PER_INSTANCES = (1000, 500, 250)
 
 def main():
     for dataset_fname, milliseconds_per_instance in zip(DATASET_FNAMES, MILLISECONDS_PER_INSTANCES):
-        dataset = pd.read_csv(DATA_PATH / f"{dataset_fname}.csv", index_col=0)
+        dataset = pd.read_csv(DATA_PATH / f"{dataset_fname}.csv.gz", compression="gzip", index_col=0)
         dataset.index = pd.to_datetime(dataset.index)
 
         DataViz = VisualizeDataset(__file__)
@@ -24,7 +24,7 @@ def main():
         skip_points = int((1 - window_overlap) * ws)
         dataset = dataset.iloc[::skip_points, :]
 
-        dataset.to_csv(DATA_PATH / f"{dataset_fname}_freq.csv")
+        dataset.to_csv(DATA_PATH / f"{dataset_fname}_freq.csv.gz", compression="gzip")
 
 if __name__ == '__main__':
     main()
