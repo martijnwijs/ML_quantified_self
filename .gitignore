@@ -11,3 +11,12 @@ util/__pycache__/
 *.pyc
 
 data_preprocessing/__pycache__/
+
+data/raw/
+
+.ipynb_checkpoints/
+data/aggregated/aggregated_1s_outliers_imputations_pcas.csv
+
+data/aggregated/aggregated_250ms_outliers_imputations_pcas.csv
+
+data/aggregated/aggregated_500ms_outliers_imputations_pcas.csv
