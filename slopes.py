@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 
-DATA_PATH = Path('./data/')
+DATA_PATH = Path('./data/aggregated')
 DATASET_FNAMES = ('aggregated_1s_outliers_imputations', 'aggregated_250ms_outliers_imputations', 'aggregated_500ms_outliers_imputations')
 intervals = [1., 0.25, 0.5]
 

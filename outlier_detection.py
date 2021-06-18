@@ -5,7 +5,7 @@ from pathlib import Path
 from data_preprocessing.outlier_detection import DistributionBasedOutlierDetection
 from util.visualize_dataset import VisualizeDataset
 
-DATA_PATH = Path('./data/')
+DATA_PATH = Path('./data/aggregated/')
 DATASET_FNAMES = ('aggregated_1s', 'aggregated_250ms', 'aggregated_500ms')
 
 def main():
