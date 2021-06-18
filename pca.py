@@ -3,14 +3,13 @@ import pandas as pd
 from pathlib import Path
 from sklearn.decomposition import PCA
 
-DATA_PATH = Path('./data/aggregated')
-DATASET_FNAMES = (
-'aggregated_1s_outliers_imputations', 'aggregated_250ms_outliers_imputations', 'aggregated_500ms_outliers_imputations')
-
+SRC_PATH = Path('./data/preprocessed/')
+DST_PATH = Path('./data/engineered/')
+DATASET_FNAMES = ('aggregated_1s', 'aggregated_250ms', 'aggregated_500ms')
 
 def main():
     for dataset_fname in DATASET_FNAMES:
-        data = pd.read_csv(f'{DATA_PATH}/{dataset_fname}.csv')
+        data = pd.read_csv(f'{SRC_PATH}/{dataset_fname}_outliers_imp.csv.gz', compression="gzip")
         data.index = data.attr_time
         data = data.drop(['attr_time'], axis=1)
         features = data.iloc[:, :6].columns.values
@@ -27,7 +26,7 @@ def main():
         pcas_df = pd.DataFrame(pcas_series)
 
         data = data.reset_index().join(pcas_df)
-        data.to_csv(f"{DATA_PATH}/{dataset_fname}_pcas.csv")
+        data.to_csv(f"{DST_PATH}/{dataset_fname}_pcas.csv.gz", compression="gzip")
 
 if __name__ == "__main__":
     main()
