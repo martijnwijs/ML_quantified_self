@@ -5,12 +5,17 @@ from pathlib import Path
 from data_preprocessing.outlier_detection import DistributionBasedOutlierDetection
 from util.visualize_dataset import VisualizeDataset
 
+<<<<<<< HEAD
 DATA_PATH = Path('./data/aggregated/')
+=======
+SRC_PATH = Path('./data/aggregated/')
+DST_PATH = Path('./data/preprocessed/')
+>>>>>>> 517d7906254936779f12ba6eef9105e9b1101bc3
 DATASET_FNAMES = ('aggregated_1s', 'aggregated_250ms', 'aggregated_500ms')
 
 def main():
     for dataset_fname in DATASET_FNAMES:
-        dataset = pd.read_csv(Path(DATA_PATH / f"{dataset_fname}.csv"), index_col=0)
+        dataset = pd.read_csv(Path(SRC_PATH / f"{dataset_fname}.csv"), index_col=0)
         dataset.index = pd.to_datetime(dataset.index)
         outlier_columns = ['attr_x', 'attr_y', 'attr_z', 'attr_lat', 'attr_lng', 'attr_azimuth', 'attr_pitch', 'attr_roll']
 
@@ -30,7 +35,7 @@ def main():
             result = OutlierDistr.chauvenet(3, data, col)
             dataset.loc[data.loc[result[f'{col}_outlier'] == True, col].index, col] = np.nan
 
-        dataset.to_csv(DATA_PATH / f"{dataset_fname}_outliers.csv")
+        dataset.to_csv(f"{DST_PATH}/{dataset_fname}_outliers.csv.gz", compression="gzip")
 
 if __name__ == "__main__":
     main()
