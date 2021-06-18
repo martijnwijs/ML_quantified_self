@@ -2,7 +2,7 @@ import pandas as pd
 from pathlib import Path
 
 from util.visualize_dataset import VisualizeDataset
-from feature_engineering.FrequencyAbstraction import FourierTransformation
+from feature_engineering.frequency_abstraction import FourierTransformation
 
 DATA_PATH = Path('./data/')
 DATASET_FNAMES = ('aggregated_1s_outliers_imputations', 'aggregated_500ms_outliers_imputations', 'aggregated_250ms_outliers_imputations')
