@@ -5,7 +5,7 @@ from util.visualize_dataset import VisualizeDataset
 from feature_engineering.frequency_abstraction import FourierTransformation
 
 DATA_PATH = Path('./data/engineered')
-DATASET_FNAMES = ('aggregated_1s_pcas_slopes', 'aggregated_500ms_pcas_slopes', 'aggregated_250ms_pcas_slopes')
+DATASET_FNAMES = ('aggregated_1s_pcas_slopes_clust', 'aggregated_500ms_pcas_slopes_clust', 'aggregated_250ms_pcas_slopes_clust')
 MILLISECONDS_PER_INSTANCES = (1000, 500, 250)
 
 def main():
@@ -13,7 +13,6 @@ def main():
         dataset = pd.read_csv(DATA_PATH / f"{dataset_fname}.csv.gz", compression="gzip", index_col=0)
         dataset.index = pd.to_datetime(dataset.index)
 
-        DataViz = VisualizeDataset(__file__)
         FreqAbs = FourierTransformation()
         fs = float(1000) / milliseconds_per_instance
         ws = int(float(40*1000) / milliseconds_per_instance)
